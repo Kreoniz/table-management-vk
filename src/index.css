@@ -177,7 +177,7 @@
   }
 
   .magic > .magic-text {
-    animation: background-pan 3s linear infinite;
+    animation: background-pan 5s linear infinite;
 
     background: linear-gradient(to right, purple, violet, pink, purple);
 

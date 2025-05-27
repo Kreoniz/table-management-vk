@@ -1,11 +1,19 @@
 import { MagicalText } from "@/components/magical-text";
+import { ThemeProvider } from "@/components/theme-provider";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export function App() {
   return (
-    <div className="my-2 mx-4">
-      <h1 className="font-bold text-2xl">
-        <MagicalText text="Tabletastic" />
-      </h1>
-    </div>
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <div className="border-b-2 py-3">
+        <div className="mx-4 flex justify-between items-center">
+          <h1 className="font-bold text-2xl">
+            <MagicalText text="Tabletastic" />
+          </h1>
+
+          <ModeToggle />
+        </div>
+      </div>
+    </ThemeProvider>
   );
 }
