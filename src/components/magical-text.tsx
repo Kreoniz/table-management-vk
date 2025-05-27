@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import { Sparkle } from "lucide-react";
+import { useEffect, useRef } from 'react';
+import { Sparkle } from 'lucide-react';
 
 interface MagicalTextProps {
   text: string;
@@ -21,16 +21,15 @@ export function MagicalText({
   };
 
   useEffect(() => {
-    const rand = (min: number, max: number) =>
-      Math.floor(Math.random() * (max - min + 1)) + min;
+    const rand = (min: number, max: number) => Math.floor(Math.random() * (max - min + 1)) + min;
 
     const animate = (star: HTMLSpanElement) => {
-      star.style.setProperty("--star-left", `${rand(-10, 100)}%`);
-      star.style.setProperty("--star-top", `${rand(-35, 75)}%`);
+      star.style.setProperty('--star-left', `${rand(-10, 100)}%`);
+      star.style.setProperty('--star-top', `${rand(-35, 75)}%`);
 
-      star.style.animation = "none";
+      star.style.animation = 'none';
       star.getClientRects();
-      star.style.animation = "";
+      star.style.animation = '';
     };
 
     const intervals: NodeJS.Timeout[] = [];
@@ -43,7 +42,7 @@ export function MagicalText({
           animate(star);
           intervals.push(setInterval(() => animate(star), duration));
         },
-        index * (duration / starAmount),
+        index * (duration / starAmount)
       );
     });
 
@@ -56,9 +55,9 @@ export function MagicalText({
     <span className={`magic ${className}`}>
       <span className="magic-text">{text}</span>
 
-      {new Array(starAmount).fill("").map((_, index) => (
+      {new Array(starAmount).fill('').map((_, index) => (
         <span key={index} ref={setStarRef(index)} className="magic-star">
-          <Sparkle className="stroke-none h-5 fill-purple-400" />
+          <Sparkle className="h-5 fill-purple-400 stroke-none" />
         </span>
       ))}
     </span>
