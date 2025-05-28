@@ -1,6 +1,7 @@
 import { MagicalText } from '@/components/magical-text';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ModeToggle } from '@/components/mode-toggle';
+import { Table } from '@/components/table';
 
 export function App() {
   return (
@@ -13,6 +14,10 @@ export function App() {
 
           <ModeToggle />
         </div>
+      </div>
+
+      <div className="relative h-full pb-4">
+        <Table />
       </div>
     </ThemeProvider>
   );
