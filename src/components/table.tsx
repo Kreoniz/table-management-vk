@@ -179,6 +179,7 @@ export function Table() {
       </div>
 
       <ScrollArea
+        type="scroll"
         className="h-[600px] w-full overflow-auto rounded-lg border"
         ref={tableContainerRef}
       >
