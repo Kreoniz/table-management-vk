@@ -51,6 +51,11 @@ export function AddUserDialog() {
     resolver: zodResolver(formSchema),
   });
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSubmit(onSubmit)(e);
+  };
+
   const onSubmit = (form: FormValues) => {
     const newUser: Person = {
       ...form,
@@ -60,6 +65,7 @@ export function AddUserDialog() {
       isActive: true,
       picture: 'https://picsum.photos/200',
       age: Number(form.age),
+      gender: 'male',
       eyeColor: 'brown',
       address: '',
       registered: new Date().toISOString(),
@@ -71,9 +77,11 @@ export function AddUserDialog() {
       favoriteFruit: 'apple',
     };
 
-    createMutation.mutate(newUser);
-
-    reset(); // Reset form after submission
+    createMutation.mutate(newUser, {
+      onSuccess: () => {
+        reset();
+      },
+    });
   };
 
   return (
@@ -87,7 +95,7 @@ export function AddUserDialog() {
           <DialogTitle>Добавление пользователя</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-2 gap-4 py-4">
+        <form onSubmit={handleFormSubmit} className="grid grid-cols-2 gap-4 py-4">
           {fields.map(({ key, label }) => (
             <div key={key}>
               <Label className="mb-2 block">{label}</Label>
@@ -101,7 +109,9 @@ export function AddUserDialog() {
           ))}
 
           <DialogFooter className="col-span-2 mt-4">
-            <Button type="submit">Добавить</Button>
+            <Button disabled={createMutation.isPending} type="submit">
+              Добавить
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

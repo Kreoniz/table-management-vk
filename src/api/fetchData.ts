@@ -35,6 +35,7 @@ const fetchItems = async ({ pageParam = 1 }): Promise<PaginatedResponse> => {
 };
 
 const createItem = async (newItem: Omit<Person, 'id'>): Promise<Person> => {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const response = await fetch(`${API_URL}/users`, {
     method: 'POST',
     headers: {
@@ -64,9 +65,25 @@ export const useInfiniteItems = () => {
 export const useCreateItem = () => {
   return useMutation({
     mutationFn: createItem,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['infinite-items'],
+    onSuccess: (newItem) => {
+      // Update the cache directly instead of invalidating
+      queryClient.setQueryData(['infinite-items'], (oldData: any) => {
+        if (!oldData) return oldData;
+
+        // Add the new item to the first page
+        const updatedPages = [...oldData.pages];
+        if (updatedPages[0]) {
+          updatedPages[0] = {
+            ...updatedPages[0],
+            data: [newItem, ...updatedPages[0].data],
+            totalCount: updatedPages[0].totalCount + 1,
+          };
+        }
+
+        return {
+          ...oldData,
+          pages: updatedPages,
+        };
       });
     },
   });
