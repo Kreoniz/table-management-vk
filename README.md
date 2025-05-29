@@ -99,7 +99,7 @@
 
     ```bash
     pnpm json-server ./src/data/db.json
-4. Запустите фронтенд и перейдите на localhost:5173
+4. Запустите фронтенд и перейдите на localhost:4173
 
     ```bash
     pnpm build
