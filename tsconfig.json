@@ -9,6 +9,10 @@
     }
   ],
   "compilerOptions": {
+    "types": [
+      "jest",
+      "node"
+    ],
     "baseUrl": ".",
     "paths": {
       "@/*": [
