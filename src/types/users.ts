@@ -1,8 +1,8 @@
-type EyeColor = 'blue' | 'brown' | 'green';
-type Gender = 'male' | 'female' | 'other';
-type Fruit = 'apple' | 'banana' | 'strawberry';
+export type EyeColor = 'blue' | 'brown' | 'green';
+export type Gender = 'male' | 'female' | 'other';
+export type Fruit = 'apple' | 'banana' | 'strawberry';
 
-interface Friend {
+export interface Friend {
   id: number;
   name: string;
 }

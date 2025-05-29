@@ -1,1 +1,1 @@
-export { type Person } from './users';
+export type { Person, EyeColor, Gender, Fruit } from './users';

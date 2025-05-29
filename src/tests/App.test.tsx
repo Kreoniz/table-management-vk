@@ -7,7 +7,5 @@ describe('Table', () => {
     render(<MagicalText text="text" />);
 
     screen.debug();
-
-    // check if App components renders headline
   });
 });

@@ -1,2 +1,2 @@
 export { queryClient } from './client';
-export { useInfiniteItems } from './fetchData';
+export { useInfiniteItems, useCreateItem, type PaginatedResponse } from './fetchData';

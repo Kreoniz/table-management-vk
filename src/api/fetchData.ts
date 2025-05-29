@@ -6,7 +6,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 type Item = Person;
 
-type PaginatedResponse = {
+export type PaginatedResponse = {
   data: Item[];
   page: number;
   totalCount: number;
@@ -66,11 +66,9 @@ export const useCreateItem = () => {
   return useMutation({
     mutationFn: createItem,
     onSuccess: (newItem) => {
-      // Update the cache directly instead of invalidating
       queryClient.setQueryData(['infinite-items'], (oldData: any) => {
         if (!oldData) return oldData;
 
-        // Add the new item to the first page
         const updatedPages = [...oldData.pages];
         if (updatedPages[0]) {
           updatedPages[0] = {
