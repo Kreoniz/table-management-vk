@@ -2,6 +2,7 @@ import { MagicalText } from '@/components/magical-text';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Table } from '@/components/table';
+import { AddUserDialog } from '@/components/add-row-dialog';
 
 export function App() {
   return (
@@ -12,7 +13,10 @@ export function App() {
             <MagicalText text="Tabletastic" />
           </h1>
 
-          <ModeToggle />
+          <div className="flex items-center gap-1">
+            <ModeToggle />
+            <AddUserDialog />
+          </div>
         </div>
       </div>
 

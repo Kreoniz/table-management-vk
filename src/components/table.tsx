@@ -115,6 +115,7 @@ export function Table() {
   const { data, fetchNextPage, isFetching, isLoading } = useInfiniteItems();
 
   const flatData = useMemo(() => data?.pages.flatMap((page) => page.data) ?? [], [data]);
+  const totalCount = data?.pages[0].totalCount;
   const totalDBRowCount = data?.pages[0]?.totalPages ? data.pages[0].totalPages * fetchSize : 0;
   const totalFetched = flatData.length;
 
@@ -170,7 +171,7 @@ export function Table() {
   return (
     <div className="px-4 py-2">
       <div className="text-secondary-foreground mb-3 text-xs">
-        Загружено {flatData.length} из {totalDBRowCount} пользователей
+        Загружено {flatData.length} из {totalCount} пользователей
       </div>
 
       <ScrollArea

@@ -1,4 +1,5 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { queryClient } from './client';
 import { type Person } from '@/types';
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -8,6 +9,7 @@ type Item = Person;
 type PaginatedResponse = {
   data: Item[];
   page: number;
+  totalCount: number;
   totalPages: number;
   hasNextPage: boolean;
 };
@@ -20,14 +22,32 @@ const fetchItems = async ({ pageParam = 1 }): Promise<PaginatedResponse> => {
   if (!response.ok) throw new Error('Network error');
 
   const data = await response.json();
-  const totalCount = 10000;
+  const totalHeader = response.headers.get('X-Total-Count');
+  const totalCount = totalHeader ? parseInt(totalHeader, 10) : 100;
 
   return {
     data,
+    totalCount,
     page: pageParam,
     totalPages: Math.ceil(totalCount / limit),
     hasNextPage: pageParam < Math.ceil(totalCount / limit),
   };
+};
+
+const createItem = async (newItem: Omit<Person, 'id'>): Promise<Person> => {
+  const response = await fetch(`${API_URL}/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newItem),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to create item');
+  }
+
+  return response.json();
 };
 
 export const useInfiniteItems = () => {
@@ -38,5 +58,16 @@ export const useInfiniteItems = () => {
     getNextPageParam: (lastPage) => (lastPage.hasNextPage ? lastPage.page + 1 : undefined),
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
+  });
+};
+
+export const useCreateItem = () => {
+  return useMutation({
+    mutationFn: createItem,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['infinite-items'],
+      });
+    },
   });
 };
