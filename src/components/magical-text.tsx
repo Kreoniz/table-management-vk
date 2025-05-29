@@ -57,7 +57,7 @@ export function MagicalText({
 
       {new Array(starAmount).fill('').map((_, index) => (
         <span key={index} ref={setStarRef(index)} className="magic-star">
-          <Sparkle className="h-5 fill-purple-400 stroke-none" />
+          <Sparkle className="h-5 fill-[var(--gradient-start)] stroke-none" />
         </span>
       ))}
     </span>

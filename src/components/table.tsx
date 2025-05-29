@@ -214,10 +214,7 @@ export function Table() {
             Array.from({ length: fetchSize }, (_, index) => <SkeletonTableRow key={index} />)}
         </div>
 
-        <div
-          ref={loadMoreRef}
-          className="flex min-h-[1px] w-full items-center justify-center"
-        ></div>
+        <div ref={loadMoreRef} className="flex min-h-[1px] w-full items-center justify-center" />
 
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
