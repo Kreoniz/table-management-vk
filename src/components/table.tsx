@@ -17,15 +17,16 @@ import { SkeletonTableRow } from '@/components/skeletons';
 const fetchSize = 10;
 
 const TruncatedCell = ({ value, maxLength = 50 }: { value: string; maxLength?: number }) => {
-  if (value && value.length <= maxLength) return <span>{value}</span>;
+  const str = String(value);
+  if (str && str.length <= maxLength) return <span>{str}</span>;
 
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <span className="block cursor-pointer truncate">{value?.slice(0, maxLength)}...</span>
+        <span className="block cursor-pointer truncate">{str?.slice(0, maxLength)}...</span>
       </HoverCardTrigger>
       <HoverCardContent className="max-h-64 w-auto max-w-md overflow-auto">
-        <div className="text-sm whitespace-pre-wrap">{value}</div>
+        <div className="text-sm whitespace-pre-wrap">{str}</div>
       </HoverCardContent>
     </HoverCard>
   );

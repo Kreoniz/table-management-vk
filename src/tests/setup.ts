@@ -4,13 +4,17 @@ import * as matchers from '@testing-library/jest-dom/matchers';
 import '@testing-library/jest-dom';
 
 class IntersectionObserver {
-  constructor(
-    public callback: any,
-    public options?: any
-  ) {}
-  observe = vi.fn();
-  unobserve = vi.fn();
-  disconnect = vi.fn();
+  callback: IntersectionObserverCallback;
+  options?: IntersectionObserverInit;
+
+  constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+    this.callback = callback;
+    this.options = options;
+  }
+
+  observe() {}
+  unobserve() {}
+  disconnect() {}
 }
 
 Object.defineProperty(global, 'IntersectionObserver', {

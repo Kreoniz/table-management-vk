@@ -16,7 +16,7 @@ export type PaginatedResponse = {
 
 const fetchItems = async ({ pageParam = 1 }): Promise<PaginatedResponse> => {
   const limit = 10;
-  const response = await fetch(`${API_URL}/users?_page=${pageParam}&_limit=${limit}`);
+  const response = await fetch(`${API_URL}/data?_page=${pageParam}&_limit=${limit}`);
   await new Promise((resolve) => setTimeout(resolve, 250));
 
   if (!response.ok) throw new Error('Network error');
@@ -36,7 +36,7 @@ const fetchItems = async ({ pageParam = 1 }): Promise<PaginatedResponse> => {
 
 const createItem = async (newItem: Omit<Person, 'id'>): Promise<Person> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  const response = await fetch(`${API_URL}/users`, {
+  const response = await fetch(`${API_URL}/data`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

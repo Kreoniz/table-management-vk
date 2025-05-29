@@ -60,7 +60,7 @@ describe('useInfiniteItems', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(fetch).toHaveBeenCalledWith(`${API_URL}/users?_page=1&_limit=10`);
+    expect(fetch).toHaveBeenCalledWith(`${API_URL}/data?_page=1&_limit=10`);
     expect(result.current.data?.pages[0]).toEqual(mockResponse);
   });
 
