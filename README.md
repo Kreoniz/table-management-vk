@@ -1,54 +1,114 @@
-# React + TypeScript + Vite
+# Tabletastic
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Таблица с бесконечным скроллом на React
 
-Currently, two official plugins are available:
+[Тестовое задания на стажировку в ВК](https://internship.vk.company/vacancy/1109)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Оглавление
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Предисловие](#предисловие)
+- [Структура проекта](#структура-проекта)
+- [Используемые зависимости](#используемые-зависимости)
+- [Запуск проекта](#запуск-проекта)
+- [Дизайн макеты](#дизайн-макеты)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Предисловие
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Новая версия `json-server` почему-то не возвращает хедер x-total-count, но версия 0.17.4 возвращает, я использовал ее.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+Давно хотел воспользоваться и поизучать технологии из [TanStack](https://tanstack.com/), но, видимо для этого проекта это был overkill - можно было обойтись `axios` и здравым смыслом.
+
+Я не использовал стейт менеджеры, потому что `TanStack Query` предоставляет функцию инвалидации хеша, было интересно поработать с этим.
+
+---
+
+## Структура проекта
+
+###  Корневые файлы
+- `App.tsx` - Главный компонент приложения
+- `main.tsx` - Точка входа в приложение
+- `index.css` - Глобальные стили
+- `vite-env.d.ts` - Декларации типов для Vite
+
+### Компоненты
+#### `components/`
+- `add-row-dialog.tsx` - Диалог добавления новых записей
+- `magical-text.tsx` - Кастомный текстовый компонент
+- `mode-toggle.tsx` - Переключатель светлой/тёмной темы
+- `table.tsx` - Основной компонент таблицы
+- `theme-provider.tsx` - Провайдер темы оформления
+- `skeletons/` - Компоненты-заглушки для состояния загрузки
+- `ui/` - UI-компоненты из Shadcn UI
+
+### API слой
+#### `api/`
+- `client.ts` - HTTP-клиент (QueryClient)
+- `fetchData.ts` - Функции для работы с API
+- `index.ts` - Экспорт всех API функций
+
+### Данные
+#### `data/`
+- `db.json` - Фиктивная база данных для разработки
+- `large-db.json` - Большой набор тестовых данных
+
+### Вспомогательные модули
+#### `lib/`
+- `utils.ts` - Вспомогательные функции и утилиты
+
+### Тестирование
+#### `tests/`
+- `api/` - Тесты API модулей
+- `setup.ts` - Настройка тестовой среды
+
+### Типы
+#### `types/`
+- `index.ts` - Экспорт всех типов
+- `users.ts` - Типы для работы с пользовательскими данными
+
+---
+
+## Используемые зависимости
+
+- React
+- TypeScript
+- Tailwind CSS
+- TanStack Table
+- TanStack Query
+- React Hook Form
+- ShadCN UI Components
+- json-server (для API)
+
+---
+
+## Запуск проекта
+
+1. Склонируйте репозиторий
+
+   ```bash
+   git clone https://github.com/kreoniz/table-management-vk.git
+   cd table-management-vk
+2. Установите зависимости с помощью [`pnpm`](https://pnpm.io/installation)
+
+    ```bash
+    pnpm install
+3. Запустите сервер `json-server` на localhost:3000
+
+    ```bash
+    pnpm json-server ./src/data/db.json
+4. Запустите фронтенд и перейдите на localhost:5173
+
+    ```bash
+    pnpm build
+    pnpm preview
+
+---
+
+## Дизайн макеты
+
+Перед тем, как приступить к разработке, был набросан дизайн примерный дизайн в [excalidraw](https://excalidraw.com/)
+
+![Дизайн](https://github.com/kreoniz/table-management-vk/raw/main/images/design.png)
